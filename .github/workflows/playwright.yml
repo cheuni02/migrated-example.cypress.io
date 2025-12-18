@@ -5,23 +5,27 @@ on:
   pull_request:
     branches: [ main, master ]
 jobs:
-  test:
+  test-actions-page:
     timeout-minutes: 60
     runs-on: ubuntu-latest
     steps:
-    - uses: actions/checkout@v4
-    - uses: actions/setup-node@v4
-      with:
-        node-version: lts/*
-    - name: Install dependencies
-      run: npm install -g yarn && yarn
-    - name: Install Playwright Browsers
-      run: yarn playwright install --with-deps
-    - name: Run Playwright tests
-      run: yarn playwright test
-    - uses: actions/upload-artifact@v4
-      if: ${{ !cancelled() }}
-      with:
-        name: playwright-report
-        path: playwright-report/
-        retention-days: 30
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: lts/*
+      - name: Install dependencies
+        run: npm install -g yarn && yarn
+      - name: Install Playwright Browsers
+        run: yarn playwright install --with-deps
+      - name: Run Todos Page Tests
+        run: yarn playwright test tests/e2e/1-getting-started/todo.test.spec.ts
+      - name: Run Actions Page Tests
+        run: yarn playwright test tests/e2e/2-advanced-examples/actions.spec.ts
+      - name: Run API Request Tests
+        run: yarn playwright test tests/api/request.spec.ts
+      - uses: actions/upload-artifact@v4
+        if: ${{ !cancelled() }}
+        with:
+          name: playwright-report
+          path: playwright-report/
+          retention-days: 30
