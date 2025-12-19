@@ -22,6 +22,7 @@ export class TodosPage {
     async addNewTodo(task: string) {
         await this.inputTodo.fill(task);
         await this.inputTodo.press('Enter');
+        console.log("test");
     }
 
     async returnTodoItems() {
