@@ -21,10 +21,14 @@ export class ActionsPage extends BasePage {
     }
 
     async goto(){
-        await this.page.goto(this.path)
+        await this.page.goto(this.path);
+    }
+
+    async refresh(){
+        await this.page.reload();
     }
 
     async fillEmail1Field(text: string){
-        await this.typeEmail1Field.fill(text)
+        await this.typeEmail1Field.fill(text);
     }
 }

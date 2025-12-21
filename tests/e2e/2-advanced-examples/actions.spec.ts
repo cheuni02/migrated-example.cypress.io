@@ -6,6 +6,7 @@ test.describe('Actions Page Demo', () => {
   test.beforeEach(async ({page}) => {
     actionPage = new ActionsPage(page);
     await actionPage.goto();
+    await actionPage.refresh();
   });
 
   test('.type() - type into a DOM element', async () => {
@@ -19,7 +20,7 @@ test.describe('Actions Page Demo', () => {
     expect(whatsFilled).toBe('fake@email.com');
   });
 
-  test('.focus() - focus on a DOM element', async () => {
+  test('.focus() - focus on a DOM element', async ({ page }) => {
     /*
       // https://on.cypress.io/focus
       cy.get('.action-focus').focus()
@@ -29,7 +30,7 @@ test.describe('Actions Page Demo', () => {
     const input = actionPage.actionFocusField;
     await actionPage.scrollToHeader('focus');
     await input.focus();
-    expect(input).toHaveClass(/focus/);
+    expect(input).toContainClass('focus');
   });
 
   test('.clear() - clears an input or textarea element', async () => {
