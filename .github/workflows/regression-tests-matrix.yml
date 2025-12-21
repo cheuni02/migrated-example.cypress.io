@@ -2,7 +2,7 @@ name: nightly regression test run
 
 on:
   schedule:
-    - cron: '0 1 * * *'
+    - cron: '0 15 * * *'
 
 jobs:
   playwright:
@@ -24,6 +24,12 @@ jobs:
 
     steps:
       - uses: actions/checkout@v4
+
+      - name: Show runner time (UTC)
+        run: date -u
+
+      - name: Show runner local time
+        run: date
 
       - uses: actions/setup-node@v4
         with:
