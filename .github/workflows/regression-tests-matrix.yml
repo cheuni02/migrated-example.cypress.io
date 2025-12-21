@@ -2,7 +2,7 @@ name: nightly regression test run
 
 on:
   schedule:
-    - cron: '50 1 * * *'
+    - cron: '15 00 * * *'
 
 jobs:
   playwright:
