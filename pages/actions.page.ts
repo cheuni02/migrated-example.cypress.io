@@ -14,7 +14,7 @@ export class ActionsPage extends BasePage {
         super(page);
         this.typeEmail1Field = this.contentContainer.locator('#email1');
         this.typeDisabledTextarea = this.contentContainer.locator('textarea');
-        this.actionFocusField = this.contentContainer.locator('.action-focus');
+        this.actionFocusField = this.contentContainer.locator('input#password1');
         this.descriptionField = this.contentContainer.locator('#description');
         this.actionBtn = this.contentContainer.locator('button.action-btn');
         this.actionCanvas = this.contentContainer.locator('#action-canvas');
