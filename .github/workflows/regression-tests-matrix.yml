@@ -2,7 +2,7 @@ name: nightly regression test run
 
 on:
   schedule:
-    - cron: '0 15 * * *'
+    - cron: '0 0 * * *'
 
 jobs:
   playwright:
@@ -42,7 +42,7 @@ jobs:
         run: yarn playwright install --with-deps
 
       - name: Run tests
-        run: yarn playwright test ${{ matrix.test.file }}
+        run: yarn playwright test ${{ matrix.test.file }} || exit 1
 
       - uses: actions/upload-artifact@v4
         if: ${{ !cancelled() }}
