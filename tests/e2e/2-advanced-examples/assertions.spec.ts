@@ -2,7 +2,7 @@ import {expect, Locator, test} from "@playwright/test";
 import {AssertionsPage} from "../../../pages/assertions.page";
 
 test.describe('Assertions', () => {
-    test.describe('Implicit Assertions', () => {
+    test.describe.only('Implicit Assertions', () => {
         let assertionsPage: AssertionsPage;
         let underTest: Locator;
 
@@ -75,7 +75,23 @@ test.describe('Assertions', () => {
     });
     test.describe('Explicit Assertions', () => {
         test('expect - make an assertion about a specified subject',() => {
-            expect(true).toBeTruthy();
+            /*
+                it("expect - make an assertion about a specified subject", () => {
+                // We can use Chai's BDD style assertions
+                expect(true).to.be.true;
+                const o = { foo: "bar" };
+
+                expect(o).to.equal(o);
+                expect(o).to.deep.equal({ foo: "bar" });
+                // matching text using regular expression
+                expect("FooBar").to.match(/bar$/i);
+            });
+             */
+            expect(true).toBe(true);
+            const o = { foo: "bar" };
+            expect(o).toEqual(o);
+            expect(o).toEqual({ foo: "bar" });
+            expect("FooBar").toMatch(/bar/i);
         });
         test('pass your own callback function to should()',() => {
             expect(true).toBeTruthy();

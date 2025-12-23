@@ -14,10 +14,12 @@ jobs:
       fail-fast: false
       matrix:
         test:
-          - name: actions-page
-            file: tests/e2e/2-advanced-examples/actions.spec.ts
           - name: todo-page
             file: tests/e2e/1-getting-started/todo.test.spec.ts
+          - name: actions-page
+            file: tests/e2e/2-advanced-examples/actions.spec.ts
+          - name: assertions-page
+            file: tests/e2e/2-advanced-examples/assertions.spec.ts
           - name: api-requests
             file: tests/api/request.spec.ts
 
