@@ -1,12 +1,13 @@
-import {expect, test} from '@playwright/test'
+import {expect, Locator, test} from '@playwright/test'
 import {ActionsPage} from "../../../pages/actions.page";
 
 test.describe('Actions Page Demo', () => {
   let actionPage: ActionsPage;
+  let underTest: Locator;
+
   test.beforeEach(async ({page}) => {
     actionPage = new ActionsPage(page);
     await actionPage.goto();
-    await actionPage.refresh();
   });
 
   test('.type() - type into a DOM element', async () => {
@@ -14,9 +15,10 @@ test.describe('Actions Page Demo', () => {
       cy.get('.action-email').type('fake@email.com')
       cy.get('.action-email').should('have.value', 'fake@email.com')
      */
-    await actionPage.scrollToHeader('type');
-    await actionPage.fillEmail1Field('fake@email.com');
-    const whatsFilled = await actionPage.typeEmail1Field.inputValue();
+    underTest = actionPage.typeEmail1Field;
+    await underTest.scrollIntoViewIfNeeded();
+    await underTest.fill('fake@email.com');
+    const whatsFilled = await underTest.inputValue();
     expect(whatsFilled).toBe('fake@email.com');
   });
 
@@ -27,10 +29,10 @@ test.describe('Actions Page Demo', () => {
       cy.get('.action-focus').should('have.class', 'focus')
           .prev().should('have.attr', 'style', 'color: orange;')
      */
-    const input = actionPage.actionFocusField;
-    await actionPage.scrollToHeader('focus');
-    await input.focus();
-    await expect(input).toBeFocused();
+    underTest = actionPage.actionFocusField;
+    await underTest.scrollIntoViewIfNeeded();
+    await underTest.focus();
+    await expect(underTest).toBeFocused();
   });
 
   test('.clear() - clears an input or textarea element', async () => {
@@ -42,12 +44,12 @@ test.describe('Actions Page Demo', () => {
       cy.get('.action-clear').should('have.value', '')
     */
     const testCopy = 'Clear this text';
-    const description =  actionPage.descriptionField;
-    await actionPage.scrollToHeader('clear');
-    await description.fill(testCopy);
-    expect(description).toHaveValue(testCopy);
-    await description.clear();
-    expect(description).toHaveValue('');
+    underTest =  actionPage.descriptionField;
+    await underTest.scrollIntoViewIfNeeded();
+    await underTest.fill(testCopy);
+    expect(underTest).toHaveValue(testCopy);
+    await underTest.clear();
+    expect(underTest).toHaveValue('');
   });
 
   test('.click() - click on a DOM element', async () => {
@@ -98,8 +100,9 @@ test.describe('Actions Page Demo', () => {
       // Ignore error checking prior to clicking
       cy.get('.action-opacity>.btn').click({ force: true })
     */
+    underTest = actionPage.actionBtn;
     await actionPage.scrollToHeader('click');
-    await actionPage.actionBtn.click();
+    await underTest.click();
 
     const canvas = actionPage.actionCanvas;
     const box = await canvas.boundingBox();
@@ -116,6 +119,32 @@ test.describe('Actions Page Demo', () => {
     await canvas.click({ position: { x: 0, y: box.height - inset } });             // bottomLeft
     await canvas.click({ position: { x: box.width / 2, y: box.height - inset } }); // bottom
     await canvas.click({ position: { x: box.width - inset, y: box.height - inset } });     // bottomRight
+
+    await canvas.click({ position: { x: 80, y: 75 } }); //80, 75
+    await canvas.click({ position: { x: 170, y: 75 } }); //170, 75
+    await canvas.click({ position: { x: 80, y: 165 } }); //80, 165
+    await canvas.click({ position: { x: 100, y: 185 } }); //100, 185
+    await canvas.click({ position: { x: 125, y: 190 } }); //125, 190
+    await canvas.click({ position: { x: 150, y: 185 } }); //150, 185
+    await canvas.click({ position: { x: 170, y: 165 } }); //150, 185
+
   });
 
+  test('.rightclick() - right click on a DOM element', async () => {
+    /*
+    it('.rightclick() - right click on a DOM element', () => {
+    // https://on.cypress.io/rightclick
+
+    // Our app has a listener on 'contextmenu' event in our 'scripts.js'
+    // that hides the div and shows an input on right click
+    cy.get('.rightclick-action-div').rightclick()
+    cy.get('.rightclick-action-div').should('not.be.visible')
+    cy.get('.rightclick-action-input-hidden').should('be.visible')
+    })
+     */
+    underTest = actionPage.toBeRightClickedOn;
+    await underTest.scrollIntoViewIfNeeded();
+    await underTest.click({ button: 'right'});
+    await expect(underTest).not.toBeVisible();
+  });
 });

@@ -9,6 +9,9 @@ export class ActionsPage extends BasePage {
     readonly descriptionField: Locator;
     readonly actionBtn: Locator;
     readonly actionCanvas: Locator;
+    readonly toBeRightClickedOn: Locator;
+    readonly hiddenInput: Locator;
+
 
     constructor(page: Page) {
         super(page);
@@ -18,6 +21,8 @@ export class ActionsPage extends BasePage {
         this.descriptionField = this.contentContainer.locator('#description');
         this.actionBtn = this.contentContainer.locator('button.action-btn');
         this.actionCanvas = this.contentContainer.locator('#action-canvas');
+        this.toBeRightClickedOn = this.contentContainer.locator('.rightclick-action-div');
+        this.hiddenInput = this.contentContainer.locator('.rightclick-action-input-hidden');
     }
 
     async goto(){
