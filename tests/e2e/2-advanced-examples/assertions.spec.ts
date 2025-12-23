@@ -2,7 +2,7 @@ import {expect, Locator, test} from "@playwright/test";
 import {AssertionsPage} from "../../../pages/assertions.page";
 
 test.describe('Assertions', () => {
-    test.describe.only('Implicit Assertions', () => {
+    test.describe('Implicit Assertions', { tag: '@implicit' }, () => {
         let assertionsPage: AssertionsPage;
         let underTest: Locator;
 
@@ -73,7 +73,7 @@ test.describe('Assertions', () => {
             await expect(href).toMatch('cypress.io')
         });
     });
-    test.describe('Explicit Assertions', () => {
+    test.describe('Explicit Assertions', { tag: '@explicit' }, () => {
         test('expect - make an assertion about a specified subject',() => {
             /*
                 it("expect - make an assertion about a specified subject", () => {

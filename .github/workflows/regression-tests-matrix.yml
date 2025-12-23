@@ -45,7 +45,7 @@ jobs:
         run: yarn playwright install --with-deps
 
       - name: Run tests
-        run: yarn playwright test ${{ matrix.test.file }} || exit 1
+        run: yarn playwright test ${{ matrix.test.file }} --grep-invert @explicit
 
       - uses: actions/upload-artifact@v4
         if: ${{ !cancelled() }}
