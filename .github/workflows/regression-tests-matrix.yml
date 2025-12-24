@@ -20,6 +20,8 @@ jobs:
             file: tests/e2e/2-advanced-examples/actions.spec.ts
           - name: assertions-page
             file: tests/e2e/2-advanced-examples/assertions.spec.ts
+          - name: cookies-page
+            file: tests/e2e/2-advanced-examples/cookies.spec.ts
           - name: api-requests
             file: tests/api/request.spec.ts
 
